@@ -1,0 +1,27 @@
+/*.box-set {
+  background:
+  height: 80px
+}*/
+
+
+#nav-bar {
+  background: #00a087;
+  margin-left: 2em;
+  margin-right: 2em;
+  width:
+  font-color: #e8fdff;
+  height: 80px
+}
+
+#nav-bar .logo {
+  width: 80px;
+  height: 80px;
+  float: left;
+}
+
+#nav-bar .header {
+  float: left;
+  margin: 10px;
+  font-size: 31.5px;
+  line-height: 200%;
+}
