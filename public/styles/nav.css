@@ -24,3 +24,11 @@
   font-size: 31.5px;
   line-height: 200%;
 }
+
+#nav-bar .HeadButt {
+  width: 120px;
+  height: 60px;
+  font-size: 20px;
+  border-radius: 5px;
+  margin-top: 8px;
+}

@@ -22,3 +22,11 @@
   width: 430px;
   resize: none;
 }
+
+.error {
+  background-color: red;
+  color: black;
+  font-size: 15px;
+  text-align: center;
+  display: none;
+}

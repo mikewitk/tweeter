@@ -7,54 +7,6 @@
 $(document).ready(function() {
   console.log("App.js is ready to use!")
 
-const data = [
-  {
-    "user": {
-      "name": "Newton",
-      "avatars": {
-        "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-        "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-        "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-      },
-      "handle": "@SirIsaac"
-    },
-    "content": {
-      "text": "If I have seen further it is by standing on the shoulders of giants"
-    },
-    "created_at": 1461116232227
-  },
-  {
-    "user": {
-      "name": "Descartes",
-      "avatars": {
-        "small":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
-        "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
-        "large":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
-      },
-      "handle": "@rd" },
-    "content": {
-      "text": "Je pense , donc je suis"
-    },
-    "created_at": 1461113959088
-  },
-  {
-    "user": {
-      "name": "Johann von Goethe",
-      "avatars": {
-        "small":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
-        "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
-        "large":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
-      },
-      "handle": "@johann49"
-    },
-    "content": {
-      "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
-    },
-    "created_at": 1461113796368
-  }
-];
-
-
 
   //Calculate the time difference
   function timeDiff(time1, time2) {
@@ -87,7 +39,7 @@ const data = [
 
     tweetArr.forEach ( (tweetObj) => {
 
-      $('#tweets-Container').append(createTweetElement(tweetObj))
+      $('#tweets-Container').prepend(createTweetElement(tweetObj))
 
     } )
 
@@ -124,22 +76,80 @@ const data = [
   }
 
 // Renders tweets on the page
-renderTweets(data);
+// renderTweets(data);
 
 // Dealing with the SUBMIT button
   $( function() {
     const $button = $("#tweetAway");
+
+
     $button.on('click', function (event) {
       event.preventDefault();
       console.log('Button Click, performin ajax call');
-      $.ajax({
-        url: "/tweets",
-        dataType: "json",
-        type: "post",
-        data: $(this).parent().serialize()
-        success:
-      })
+      var comment = $(".tweetArea").val();
+
+
+      console.log("This: ",$(".tweetArea").val().length );
+
+      if ( $(".tweetArea").val() === "" ) {
+        $(".error").slideDown("slow");
+          $('.error').text("If you are tweeting you gotta say something. Open your heart! (but not too much)");
+
+      } else if ( $(".tweetArea").val().length > 140 ) {
+        $(".error").slideDown("slow");
+          $('.error').text("Now you opened your heart too much. No one like to read long paragraphs. Cut some characters!")
+
+      } else {
+        $(".error").slideUp("fast");
+        $.ajax({
+          url: "/tweets",
+          // dataType: "json",
+          type: "post",
+          data: $(this).parent().serialize(),
+          success: function(dataS, status) {
+            console.log("Success status: ", status);
+            loadTweets();
+            $(".tweetArea").val("");
+
+          },
+          error: function (data, err) {
+            console.log("Error data: ", data);
+            console.log("Error error: ", err);
+          }
+          })
+        }
+      }
+      )
     })
-  })
+
+
+
+  // GET request for submitted tweets
+  function loadTweets () {
+    $.ajax({
+      type: 'GET',
+      url: `/tweets`,
+      dataType: 'JSON'
+    })
+
+    .done( (data) => {
+      // console.log("GET Done data: ", data);
+      renderTweets(data);
+    })
+    .fail( (XHR) => {
+        console.log(XHR)
+    })
+  }
+
+  loadTweets();
+
+  // Slide function for Compose button
+
+  $(".HeadButt").click(function(){
+    $(".new-tweet").slideToggle("slow");
+
+    $('.tweetArea').focus();
+  });
+
 
 });
