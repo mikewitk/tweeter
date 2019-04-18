@@ -1,0 +1,24 @@
+.new-tweet {
+  margin-top: 10px;
+  padding: 10px 10px 10px 10px;
+  background-color: lightgray;
+  border: 10px;
+  border-radius: 5px;
+  border-color: #999999;
+  width: 450px;
+  color: #000000;
+}
+
+.CompTitle {
+  border-bottom: 2px solid black;
+  margin-top: 5px;
+}
+
+.counter {
+  float: right;
+}
+
+.tweetArea {
+  width: 430px;
+  resize: none;
+}

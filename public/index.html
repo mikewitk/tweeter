@@ -16,11 +16,18 @@
     <!-- Navigation Bar CSS -->
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
 
+    <!-- Navigation Bar CSS -->
+    <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
+
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-2.2.3.min.js"></script>
 
     <!-- App JS -->
     <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <!-- Composer Char Counter JS -->
+    <script type="text/javascript" src="/scripts/composer-char-counter.js"></script>
+
   </head>
 
   <body>
@@ -33,14 +40,41 @@
 
     <!-- Page-specific (main) content here -->
     <main class="container">
+
       <section class="new-tweet">
-        <h2>Compose Tweet</h2>
-        <form>
-          <textarea name="text" placeholder="What are you huming about?"></textarea>
-          <input type="submit" name="Tweet">
+
+        <h2 class="CompTitle">Compose Tweet</h2>
+        <form id="tweetForm" method="POST" action="/tweets">
+          <textarea class="tweetArea" name="text" placeholder="What are you huming about?"></textarea><br>
+          <input id="tweetAway" type="submit" value="Tweet">
           <span class="counter">140</span>
         </form>
       </section>
+
+      <section id="tweets-Container">
+
+
+        <article class="containerTw">
+
+          <header class="containerTw-header">
+
+            <img class="tw-header-image" src="/images/bird.png">
+            <div class="tw-header-title">Bill Fields</div>
+            <div class="tw-header-tag">@MrFields</div>
+
+          </header>
+          <div class="containerTw-body">
+             This is body?
+           </div>
+
+          <footer class="containerTw-footer">
+            10 days ago
+          </footer>
+
+        </article>
+
+      </section>
+
     </main>
 
   </body>
