@@ -36,7 +36,6 @@ $(document).ready(function() {
 
   // Function to iterate through the array of objects
   function renderTweets(tweetArr) {
-
     tweetArr.forEach ( (tweetObj) => {
 
       $('#tweets-Container').prepend(createTweetElement(tweetObj))
@@ -50,6 +49,7 @@ $(document).ready(function() {
   //Function to create tweet based on DB
   function createTweetElement (tweetData) {
 
+    console.log(tweetData)
     // Gathering information
     const tweetName = tweetData.user.name;
     const tweetHandle = tweetData.user.handle;
