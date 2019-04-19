@@ -5,11 +5,15 @@
 
 
 #nav-bar {
-  background: #00a087;
-  margin-left: 2em;
-  margin-right: 2em;
+  background: #696969;
+  padding-left: 2em;
+  padding-right: 2em;
   color: black;
-  height: 80px
+  height: 80px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 }
 
 #nav-bar .logo {
@@ -31,4 +35,12 @@
   font-size: 20px;
   border-radius: 5px;
   margin-top: 8px;
+  float: right;
+  border: 2px solid;
+  transition-duration: 0.4s
+}
+
+#nav-bar .HeadButt:hover {
+  background-color: #696969;
+  color: white;
 }

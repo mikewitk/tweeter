@@ -7,6 +7,7 @@
 $(document).ready(function() {
   console.log("App.js is ready to use!")
 
+  $('.new-tweet').hide();
 
   //Calculate the time difference
   function timeDiff(time1, time2) {
@@ -63,13 +64,20 @@ $(document).ready(function() {
     const $createHandle = $('<div>').addClass("tw-header-tag").text(tweetHandle);
     const $createContent = $('<div>').addClass('containerTw-body').text(tweetContent);
     const $createCreation = $('<footer>').addClass('containerTw-footer').text(tweetCreation, " days ago");
+    const $createFlag = $('<i>').addClass('fab fa-canadian-maple-leaf');
+    const $createRetweet = $('<i>').addClass('fas fa-clone');
+    const $createLove = $('<i>').addClass('fab fa-gratipay');
+
 
     // Assembling the final element
     const $tweet = $('<article class="containerTw">').append($createImg)
                                                     .append($createName)
                                                     .append($createHandle)
                                                     .append($createContent)
-                                                    .append($createCreation);
+                                                    .append($createCreation)
+                                                    .append($createFlag)
+                                                    .append($createRetweet)
+                                                    .append($createLove);
 
    return $tweet
 
@@ -85,11 +93,9 @@ $(document).ready(function() {
 
     $button.on('click', function (event) {
       event.preventDefault();
-      console.log('Button Click, performin ajax call');
-      var comment = $(".tweetArea").val();
-
-
-      console.log("This: ",$(".tweetArea").val().length );
+      // console.log('Button Click, performin ajax call');
+      // var comment = $(".tweetArea").val();
+      // console.log("This: ",$(".tweetArea").val().length );
 
       if ( $(".tweetArea").val() === "" ) {
         $(".error").slideDown("slow");
@@ -107,10 +113,10 @@ $(document).ready(function() {
           type: "post",
           data: $(this).parent().serialize(),
           success: function(dataS, status) {
-            console.log("Success status: ", status);
+            // console.log("Success status: ", status);
             loadTweets();
             $(".tweetArea").val("");
-
+            $(".counter").text("140");
           },
           error: function (data, err) {
             console.log("Error data: ", data);
