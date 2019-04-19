@@ -97,7 +97,7 @@ $(document).ready(function() {
 
       } else if ( $(".tweetArea").val().length > 140 ) {
         $(".error").slideDown("slow");
-          $('.error').text("Now you opened your heart too much. No one like to read long paragraphs. Cut some characters!")
+          $('.error').text("Now you opened your heart too much. No one likes to read long paragraphs. Cut some characters!")
 
       } else {
         $(".error").slideUp("fast");
