@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  console.log("Composer Char Counter ready to use!")
 
   let text = 0;
   let textLength = 0;
@@ -15,6 +14,4 @@ $(document).ready(function() {
       $('.counter').css('color', 'black');
     }
   });
-
-
 });

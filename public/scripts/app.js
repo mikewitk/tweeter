@@ -7,9 +7,12 @@
 $(document).ready(function() {
   console.log("App.js is ready to use!")
 
+
+  // Page start with "Compose Tweet" hidden
   $('.new-tweet').hide();
 
-  //Calculate the time difference
+  //Calculate the time difference for Time Stamp at bottom left part of the tweet
+  // this function is called on "createTweetElement" function
   function timeDiff(time1, time2) {
 
     const msPerMinute = 60 * 1000;
@@ -35,30 +38,29 @@ $(document).ready(function() {
     }
   }
 
-  // Function to iterate through the array of objects
+
+  // Function that iterates through the array of tweets and post them on main page
   function renderTweets(tweetArr) {
     tweetArr.forEach ( (tweetObj) => {
 
       $('#tweets-Container').prepend(createTweetElement(tweetObj))
 
     } )
-
   }
 
 
 
-  //Function to create tweet based on DB
+  //Function to assemble the HTML element to be posted on main page
   function createTweetElement (tweetData) {
 
-    console.log(tweetData)
-    // Gathering information
+    // Storing each tweet information to a variable
     const tweetName = tweetData.user.name;
     const tweetHandle = tweetData.user.handle;
     const tweetContent = tweetData.content.text;
     const tweetCreation = timeDiff(Date.now(),tweetData.created_at);
     const tweetImgSml = tweetData.user.avatars.small;
 
-    // Assembling parts of the Article
+    // Assembling each stored information with the correct HTML tag
     const $createImg = $('<img>').addClass("tw-header-image").attr("src", tweetImgSml);
     const $createName = $('<div>').addClass("tw-header-title").text(tweetName);
     const $createHandle = $('<div>').addClass("tw-header-tag").text(tweetHandle);
@@ -69,51 +71,51 @@ $(document).ready(function() {
     const $createLove = $('<i>').addClass('fab fa-gratipay');
 
 
-    // Assembling the final element
+    // Assembling the final article element which will be returned by the function
     const $tweet = $('<article class="containerTw">').append($createImg)
                                                     .append($createName)
                                                     .append($createHandle)
                                                     .append($createContent)
                                                     .append($createCreation)
-                                                    .append($createFlag)
+                                                    .append($createLove)
                                                     .append($createRetweet)
-                                                    .append($createLove);
+                                                    .append($createFlag);
 
    return $tweet
 
   }
 
-// Renders tweets on the page
-// renderTweets(data);
-
-// Dealing with the SUBMIT button
+// SUBMIT button
   $( function() {
     const $button = $("#tweetAway");
 
-
+    // When submit button is clicked a sequence of checks happen
     $button.on('click', function (event) {
       event.preventDefault();
-      // console.log('Button Click, performin ajax call');
-      // var comment = $(".tweetArea").val();
-      // console.log("This: ",$(".tweetArea").val().length );
 
+      // If the tweet being submitted have no characters an error message will be displayed
       if ( $(".tweetArea").val() === "" ) {
         $(".error").slideDown("slow");
           $('.error').text("If you are tweeting you gotta say something. Open your heart! (but not too much)");
 
+      // If the tweet being submitted have more than 140 characters an error message will be displayed
       } else if ( $(".tweetArea").val().length > 140 ) {
         $(".error").slideDown("slow");
           $('.error').text("Now you opened your heart too much. No one likes to read long paragraphs. Cut some characters!")
 
+      // If the input respect all requirements, the tweet will be submitted.
+      // In case a error message is shown, it will retract before the new tweet is submitted.
       } else {
         $(".error").slideUp("fast");
         $.ajax({
           url: "/tweets",
-          // dataType: "json",
           type: "post",
           data: $(this).parent().serialize(),
           success: function(dataS, status) {
-            // console.log("Success status: ", status);
+
+            // After the submission, the page will be load the new tweet
+            // The text input deleted
+            // And the character count restored to 140
             loadTweets();
             $(".tweetArea").val("");
             $(".counter").text("140");
@@ -122,15 +124,15 @@ $(document).ready(function() {
             console.log("Error data: ", data);
             console.log("Error error: ", err);
           }
-          })
-        }
+        })
       }
-      )
-    })
+    }
+    )
+  })
 
 
 
-  // GET request for submitted tweets
+  // Function that loads pre-existing and recent submitted tweets
   function loadTweets () {
     $.ajax({
       type: 'GET',
@@ -139,7 +141,6 @@ $(document).ready(function() {
     })
 
     .done( (data) => {
-      // console.log("GET Done data: ", data);
       renderTweets(data);
     })
     .fail( (XHR) => {
@@ -147,6 +148,7 @@ $(document).ready(function() {
     })
   }
 
+  // When the page is loaded for the first time, all tweets on the DB are being loaded
   loadTweets();
 
   // Slide function for Compose button

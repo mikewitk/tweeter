@@ -24,7 +24,6 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
 
   // We have a connection to the "tweeter" db, starting here.
   console.log(`Connected to mongodb: ${MONGODB_URI}`);
-console.log(db);
 
 
 // The `data-helpers` module provides an interface to the database of tweets.
@@ -34,19 +33,17 @@ console.log(db);
 //
 // Because it exports a function that expects the `db` as a parameter, we can
 // require it and pass the `db` parameter immediately:
-const DataHelpers = require("./lib/data-helpers.js")(db);
+  const DataHelpers = require("./lib/data-helpers.js")(db);
 
 // The `tweets-routes` module works similarly: we pass it the `DataHelpers` object
 // so it can define routes that use it to interact with the data layer.
-const tweetsRoutes = require("./routes/tweets")(DataHelpers);
+  const tweetsRoutes = require("./routes/tweets")(DataHelpers);
 
 // Mount the tweets routes at the "/tweets" path prefix:
-app.use("/tweets", tweetsRoutes);
+  app.use("/tweets", tweetsRoutes);
 
 
 
-// db.close();
-// CLOSE HERE
 });
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
