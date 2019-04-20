@@ -46,3 +46,6 @@ Tweeter is built upon:
 
 ## Screenshots
 
+!["To start composing a tweet click on 'Compose' button"](https://github.com/mikewitk/tweeter/blob/master/docs/Compose_Tweet.png)
+
+!["Examples of tweets"](https://github.com/mikewitk/tweeter/blob/master/docs/Tweet_examples.png)
